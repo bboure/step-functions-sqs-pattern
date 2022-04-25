@@ -1,0 +1,6 @@
+paymentGateway:
+  handler: src/functions/paymentGateway.handler
+  url: true
+
+fulfillOrder:
+  handler: src/functions/fulfillOrder.handler

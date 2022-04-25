@@ -1,0 +1,18 @@
+processPayment:
+  type: queue
+  batchSize: 1
+  maxRetries: 10
+  fifo: true
+  worker:
+    memorySize: 256
+    timeout: 5
+    handler: src/functions/processPayment.handler
+    environment:
+      HTTP_ENDPOINT: !GetAtt PaymentGatewayLambdaFunctionUrl.FunctionUrl
+    iamRoleStatements:
+      - Effect: 'Allow'
+        Action:
+          - states:SendTaskSuccess
+          - states:SendTaskFailure
+        Resource:
+          - !Ref ProcessPayment

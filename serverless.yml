@@ -1,0 +1,21 @@
+service: payment-processor
+
+plugins:
+  - serverless-iam-roles-per-function
+  - serverless-step-functions
+  - serverless-esbuild
+  - serverless-lift
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  - ${file(functions.yml)}
+
+stepFunctions: ${file(step-functions.yml)}
+
+constructs: ${file(sqs.yml)}
